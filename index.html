@@ -2,75 +2,134 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="UniversEvasionVideo : vidéos, effets rétro et créativité.">
   <title>UniversEvasionVideo</title>
   <style>
+    :root {
+      color-scheme: light;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      background-color: #eef6ff;
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      overflow-x: hidden;
+      background: #eef6ff;
+      color: #222;
       font-family: Arial, sans-serif;
       text-align: center;
-      padding-top: 80px;
-      margin: 0;
+    }
+
+    .background {
+      position: fixed;
+      inset: -20px;
+      z-index: -2;
+      background:
+        linear-gradient(rgba(238, 246, 255, 0.82), rgba(238, 246, 255, 0.82)),
+        radial-gradient(circle at 20% 20%, #8ec5fc 0, transparent 35%),
+        linear-gradient(135deg, #eef6ff, #b5d9ff);
+      transition: transform 0.2s ease-out;
+    }
+
+    .background::after {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent 0,
+        transparent 3px,
+        rgba(0, 85, 170, 0.04) 4px
+      );
+      content: "";
+    }
+
+    main {
+      width: min(100%, 720px);
+      padding: 48px 28px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 12px 35px rgba(0, 55, 110, 0.16);
     }
 
     h1 {
-      color: #0055aa;
-      font-size: 40px;
+      margin: 0 0 20px;
+      color: #003d7a;
+      font-size: clamp(2rem, 5vw, 2.5rem);
     }
 
     p {
-      font-size: 20px;
-      color: #333;
+      margin: 0;
+      font-size: clamp(1rem, 3vw, 1.25rem);
+      line-height: 1.5;
     }
 
-    a {
+    .telegram-link {
       display: inline-block;
-      background-color: #0055aa;
-      color: white;
+      margin-top: 28px;
       padding: 12px 24px;
       border-radius: 6px;
+      background: #0055aa;
+      color: #fff;
+      font-size: 1.125rem;
       text-decoration: none;
-      font-size: 18px;
-      margin-top: 20px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
     }
 
-    a:hover {
-      background-color: #0077ff;
+    .telegram-link:hover {
+      background: #0077ff;
       transform: scale(1.05);
-      transition: 0.3s;
     }
 
-    /* Effet parallax */
-    .background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('https://i.imgur.com/your-vhs-image.jpg');
-      background-size: cover;
-      background-position: center;
-      z-index: -1;
-      transition: transform 0.2s ease-out;
+    .telegram-link:focus-visible {
+      outline: 3px solid #003d7a;
+      outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .background,
+      .telegram-link {
+        transition: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      main {
+        padding: 36px 20px;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="background" aria-hidden="true"></div>
 
-  <div class="background"></div>
-
-  <h1>Bienvenue sur UniversEvasionVideo</h1>
-  <p>Un univers dédié aux vidéos, aux effets rétro et à la créativité.</p>
-
-  <a href="https://t.me/UniversEvasionVideo">Rejoindre sur Telegram</a>
+  <main>
+    <h1>Bienvenue sur UniversEvasionVideo</h1>
+    <p>Un univers dédié aux vidéos, aux effets rétro et à la créativité.</p>
+    <a class="telegram-link" href="https://t.me/UniversEvasionVideo" target="_blank" rel="noopener noreferrer">
+      Rejoindre sur Telegram
+    </a>
+  </main>
 
   <script>
-    // Effet parallax
-    document.addEventListener('mousemove', (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 20;
-      const y = (e.clientY / window.innerHeight - 0.5) * 20;
-      document.querySelector('.background').style.transform = `translate(${x}px, ${y}px)`;
-    });
-  </script>
+    const background = document.querySelector('.background');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    if (background && !reduceMotion) {
+      document.addEventListener('mousemove', (event) => {
+        const x = (event.clientX / window.innerWidth - 0.5) * 20;
+        const y = (event.clientY / window.innerHeight - 0.5) * 20;
+        background.style.transform = `translate(${x}px, ${y}px)`;
+      });
+    }
+  </script>
 </body>
 </html>
