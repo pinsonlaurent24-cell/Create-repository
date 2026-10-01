@@ -14,7 +14,22 @@
       font-family: Arial, sans-serif;
       text-align: center;
       padding-top: 80px;
-    }
+    }<div class="mouse_move">
+  <img src="vhs-shelf.png" class="mouse" value="5" id="vhs">
+</div>
+
+<script>
+document.addEventListener("mousemove", parallax);
+function parallax(event) {
+  document.querySelectorAll(".mouse").forEach((shift) => {
+    const position = shift.getAttribute("value");
+    const x = (window.innerWidth - event.pageX * position) / 90;
+    const y = (window.innerHeight - event.pageY * position) / 90;
+    shift.style.transform = `translateX(${x}px) translateY(${y}px)`;
+  });
+}
+</script>
+
     h1 {
       color: #0055aa;
       font-size: 40px;
