@@ -3,37 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <title>Mon premier site Vercel</title>
-  <style>a:hover {
-  background-color: #0077ff;
-  transform: scale(1.05);
-  transition: 0.3s;
-}
+  <style>
+    a:hover {
+      background-color: #0077ff;
+      transform: scale(1.05);
+      transition: 0.3s;
+    }
 
     body {
       background-color: #eef6ff;
       font-family: Arial, sans-serif;
       text-align: center;
       padding-top: 80px;
-    }<div class="mouse_move">
-  <img src="vhs-shelf.png" class="mouse" value="5" id="vhs">
-</div>
+      overflow: hidden;
+    }
 
-<script>
-document.addEventListener("mousemove", parallax);
-function parallax(event) {
-  document.querySelectorAll(".mouse").forEach((shift) => {
-    const position = shift.getAttribute("value");
-    const x = (window.innerWidth - event.pageX * position) / 90;
-    const y = (window.innerHeight - event.pageY * position) / 90;
-    shift.style.transform = `translateX(${x}px) translateY(${y}px)`;
-  });
-}
-</script>
+    .mouse_move {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    #vhs {
+      position: absolute;
+      width: 120%;
+      opacity: 0.9;
+    }
 
     h1 {
       color: #0055aa;
       font-size: 40px;
     }
+
     p {
       font-size: 22px;
       color: #333;
@@ -41,24 +46,13 @@ function parallax(event) {
   </style>
 </head>
 <body>
+  <div class="mouse_move">
+    <img src="vhs-shelf.png" class="mouse" value="5" id="vhs">
+  </div>
+
   <h1>Bonjour depuis Vercel !</h1>
   <p>Mon site est enfin en ligne 🎉</p>
-<p>
-  <a href="https://t.me/UniversEvasionVideoBot" target="_blank" style="
-    display: inline-block;
-    background-color: #0055aa;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 18px;
-    margin-top: 20px;
-  ">
-    Me contacter sur Telegram 💬
-  </a>
-</p>
 
-  <!-- Bouton Telegram -->
   <p>
     <a href="https://t.me/UniversEvasionVideoBot" target="_blank" style="
       display: inline-block;
@@ -73,5 +67,17 @@ function parallax(event) {
       Me contacter sur Telegram 💬
     </a>
   </p>
+
+  <script>
+    document.addEventListener("mousemove", parallax);
+    function parallax(event) {
+      document.querySelectorAll(".mouse").forEach((shift) => {
+        const position = shift.getAttribute("value");
+        const x = (window.innerWidth - event.pageX * position) / 90;
+        const y = (window.innerHeight - event.pageY * position) / 90;
+        shift.style.transform = `translateX(${x}px) translateY(${y}px)`;
+      });
+    }
+  </script>
 </body>
 </html>
